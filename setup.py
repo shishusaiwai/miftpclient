@@ -6,5 +6,5 @@ setup(name='miftpclient',
       author_email="shishusaiwai@vip.qq.com",
       license="GPL",
       packages=find_packages(),
-      requires=["colorama==0.3.3"],
+      install_requires=["colorama>=0.3.3"],
       entry_points={"console_scripts": ["miftpclient = miftpclient.main:main"]})

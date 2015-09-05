@@ -3,7 +3,13 @@ import socket
 from socket import AF_INET, SOCK_STREAM
 
 
-def scan_miftp_ip(lan_ip):
+def make_ip(lan_ip, end_part):
+    lan_parts = lan_ip.split(".")
+    parts = lan_parts[: 3] + [end_part]
+    return ".".join(parts)
+
+
+def scan_miftp_ip(lan_ip, timeout):
     ftp_ips = []
     ip_parts = lan_ip.split(".")
     for i in range(0, 256):
@@ -14,7 +20,7 @@ def scan_miftp_ip(lan_ip):
             sys.stdout.write("%s/256\r" % (i + 1))
             sys.stdout.flush()
             tcpCliSock = socket.socket(AF_INET, SOCK_STREAM)
-            tcpCliSock.settimeout(0.3)
+            tcpCliSock.settimeout(timeout)
             tcpCliSock.connect((try_ip, 2121))
             tcpCliSock.close()
             del tcpCliSock
